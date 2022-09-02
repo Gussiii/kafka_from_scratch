@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+
+  zookeeper-1:
+    container_name: zookeeper-1
+    image: zookeeper:1
+    build:
+      context: ./img/zookeeper
+    volumes:
+    - ./config/zoo/zookeeper.properties:/kafka/config/zookeeper.properties
+
+  kafka-1:
+    container_name: kafka-1
+    image: kafka:1
+    build: 
+      context: ./img/kafka
+    volumes:
+    - ./config/brokers/b1/server.properties:/kafka/config/server.properties
+    - ./data/kafka-1/:/tmp/kafka-logs/
+  
+  kafka-2:
+    container_name: kafka-2
+    image: kafka:1
+    build: 
+      context: ./img/kafka
+    volumes:
+    - ./config/brokers/b2/server.properties:/kafka/config/server.properties
+    - ./data/kafka-2/:/tmp/kafka-logs/
+
+  kafka-3:
+    container_name: kafka-3
+    image: kafka:1
+    build: 
+      context: ./img/kafka
+    volumes:
+    - ./config/brokers/b3/server.properties:/kafka/config/server.properties
+    - ./data/kafka-3/:/tmp/kafka-logs/
+
+
+
+
+
+
