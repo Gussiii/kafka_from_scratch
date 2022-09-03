@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+
+  zookeeper-1:
+    container_name: zookeeper-1
+    image: zookeeper:1
+    ports:
+      - "2181:2181"
+    build:
+      context: ./img/zookeeper
+    volumes:
+    - ./config/zoo/zookeeper.properties:/kafka/config/zookeeper.properties
+
+  kafka-1:
+    container_name: kafka-1
+    image: kafka:1
+    ports:
+      - "9092:9092"
+    expose:
+      - "9093"
+    
+    build: 
+      context: ./img/kafka
+    volumes:
+    - ./config/brokers/b1/server.properties:/kafka/config/server.properties
+    - ./data/kafka-1/:/tmp/kafka-logs/

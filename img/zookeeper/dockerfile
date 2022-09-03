@@ -1,0 +1,13 @@
+FROM eclipse-temurin
+
+COPY ./kafka_2.13-3.2.1.tgz ./kafka.tgz
+
+#RUN curl https://dlcdn.apache.org/kafka/3.2.1/kafka_2.13-3.2.1.tgz --output kafka.tgz
+
+RUN mkdir kafka
+RUN tar -xvzf kafka.tgz --strip-components=1 -C ./kafka
+RUN rm kafka.tgz
+
+COPY ./start-zookeeper.sh ./start-zookeeper.sh
+RUN chmod 755 ./start-zookeeper.sh
+CMD ./start-zookeeper.sh
