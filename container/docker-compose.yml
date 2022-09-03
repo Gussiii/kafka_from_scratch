@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   kafka:
-    image: kafka:1
+    image: kafka:1 # to use a local image add a tag docker tag kafka:1 kafka:1  
     restart: always
     ports: 
       - "9092:9092"
