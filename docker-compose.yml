@@ -10,6 +10,7 @@ services:
       context: ./img/zookeeper
     volumes:
     - ./config/zoo/z1/zookeeper.properties:/kafka/config/zookeeper.properties
+    - ./config/zoo/z1/myid:/tmp/zookeeper/myid
     - ./data/zoo-1/:/tmp/zookeeper/
   
   zoo2:
@@ -21,6 +22,7 @@ services:
       context: ./img/zookeeper
     volumes:
     - ./config/zoo/z2/zookeeper.properties:/kafka/config/zookeeper.properties
+    - ./config/zoo/z2/myid:/tmp/zookeeper/myid
     - ./data/zoo-2/:/tmp/zookeeper/
 
   zoo3:
@@ -32,6 +34,7 @@ services:
       context: ./img/zookeeper
     volumes:
     - ./config/zoo/z3/zookeeper.properties:/kafka/config/zookeeper.properties
+    - ./config/zoo/z3/myid:/tmp/zookeeper/myid
     - ./data/zoo-3/:/tmp/zookeeper/
     
   kafka1:
