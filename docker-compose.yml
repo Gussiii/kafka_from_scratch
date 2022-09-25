@@ -72,3 +72,22 @@ services:
     volumes:
     - ./config/brokers/b3/server.properties:/kafka/config/server.properties
     - ./data/kafka-3/:/tmp/kafka-logs/
+
+  kafdrop:
+    image: 'obsidiandynamics/kafdrop:latest'
+    restart: "no"
+    ports:
+      - 9000:9000
+    
+    environment:
+      - KAFKA_BROKERCONNECT=kafka1:29092,kafka2:29093,kafka3:29094
+      - JVM_OPTS=-Xms32M -Xmx64M
+      - SERVER_SERVLET_CONTEXTPATH=/
+    
+    container_name: kafdrop
+    depends_on:
+      - "kafka1"
+      - "kafka2"
+      - "kafka3"
+
+
