@@ -8,6 +8,6 @@ RUN mkdir kafka
 RUN tar -xvzf kafka.tgz --strip-components=1 -C ./kafka
 RUN rm kafka.tgz
 
-COPY ./start-zookeeper.sh ./start-zookeeper.sh
-RUN chmod 755 ./start-zookeeper.sh
-CMD ./start-zookeeper.sh
+COPY ./start-sink.sh ./start-sink.sh
+RUN chmod 755 ./start-sink.sh
+CMD ./start-sink.sh

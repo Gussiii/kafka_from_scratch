@@ -3,7 +3,7 @@ services:
 
   zoo1:
     container_name: zoo1
-    image: zookeeper:1
+    image: almost/zookeeper
     ports:
       - 2181:2181
     build:
@@ -15,7 +15,7 @@ services:
   
   zoo2:
     container_name: zoo2
-    image: zookeeper:1
+    image: almost/zookeeper
     ports:
       - 2182:2182
     build:
@@ -27,7 +27,7 @@ services:
 
   zoo3:
     container_name: zoo3
-    image: zookeeper:1
+    image: almost/zookeeper
     ports:
       - 2183:2183
     build:
@@ -39,7 +39,7 @@ services:
     
   kafka1:
     container_name: kafka1
-    image: kafka:1
+    image: almost/kafka
     ports:
       - 9092:9092
       - 29092:29092
@@ -48,10 +48,11 @@ services:
     volumes:
     - ./config/brokers/b1/server.properties:/kafka/config/server.properties
     - ./data/kafka-1/:/tmp/kafka-logs/
+    - ./data/source/:/home
 
   kafka2:
     container_name: kafka2
-    image: kafka:1
+    image: almost/kafka
     ports:
       - 9093:9093
       - 29093:29093
@@ -63,7 +64,7 @@ services:
 
   kafka3:
     container_name: kafka3
-    image: kafka:1
+    image: almost/kafka
     ports:
       - 9094:9094
       - 29094:29094
@@ -72,6 +73,32 @@ services:
     volumes:
     - ./config/brokers/b3/server.properties:/kafka/config/server.properties
     - ./data/kafka-3/:/tmp/kafka-logs/
+
+  source:
+    container_name: source
+    image: almost/source
+    ports:
+      - 8001:8001
+    build: 
+      context: ./img/connect/source
+    volumes:
+    - ./config/sources/connect-standalone.properties:/kafka/config/connect-standalone.properties
+    - ./config/sources/connect-file-source.properties:/kafka/config/connect-file-source.properties
+    - ./data/source/:/home/
+
+  sink:
+    container_name: sink
+    image: almost/sink
+    ports:
+      - 8002:8002
+    build: 
+      context: ./img/connect/sink
+    volumes:
+    - ./config/sink/connect-standalone.properties:/kafka/config/connect-standalone.properties
+    - ./config/sink/connect-file-sink.properties:/kafka/config/connect-file-sink.properties
+    - ./data/sink/:/home/
+
+
 
   kafdrop:
     image: 'obsidiandynamics/kafdrop:latest'
